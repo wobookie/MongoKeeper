@@ -6,10 +6,17 @@ const registerForm = document.getElementById("registerForm");
 const btnRegisterLogin = document.getElementById("btnRegisterLogin");
 // Set event listener
 
+const {
+    Stitch,
+    RemoteMongoClient,
+    UserPasswordCredential,
+    UserPasswordAuthProviderClient
+} = stitch;
 
 // Setup MongoDB Stitch
 const appID = "archive-jeqag";
 const stitchClient = stitch.Stitch.initializeDefaultAppClient(appID);
+
 
 if (stitch.Stitch.hasAppClient(appID)) {
     statusMessage.innerText = "Client for ID " + appID + " initialised."
@@ -21,7 +28,7 @@ if (stitch.Stitch.hasAppClient(appID)) {
 
 
 if (stitchClient.auth.isLoggedIn) {
-    hideLoginForm();
+    hideLoginContainer();
     revealDashboardContainer();
     build(Date.now());
 }
@@ -29,7 +36,6 @@ if (stitchClient.auth.isLoggedIn) {
 async function handleLogin() {
 
     const { email, password } = getLoginFormInfo();
-
     await emailPasswordAuth(email, password);
     build(Date.now());
 }
@@ -41,17 +47,16 @@ async function emailPasswordAuth(email, password) {
         // Log the user in
 
         const credential = new UserPasswordCredential(email, password);
-        await stitchClient.loginWithCredential(credential)
-            .then(authedId => {
-                console.log(`successfully logged in with id: ${authedId}`);
-            })
-            .catch(err => {
-                console.error(`login failed with error: ${err}`)
-            });
+        stitchClient.auth.loginWithCredential(credential).then(authedId => {
+            console.log(`successfully logged in with id: ${authedId}`)
+        })
+            .catch(err => console.error(`login failed with error: ${err}`))
+
     }
-    hideLoginForm();
+    hideLoginContainer();
     revealDashboardContainer();
 }
+
 
 function getLoginFormInfo() {
 

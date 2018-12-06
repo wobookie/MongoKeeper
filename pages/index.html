@@ -48,10 +48,10 @@
 		</div>
 
 		<div class="row">
-			<div class="container">
+			<div class="container" id="loginContainerId">
 				<input id="btnRegisterLogin" class="btn btn-lg btn-primary " type="button" onclick="return registerNewUser();"
 				 value='Register'>
-				<form id="loginForm" class="form-signin " onsubmit="return handleLogin();">
+				<form id="loginForm" class="form-signin ">
 					<h2 class="form-signin-heading">Please sign in</h2>
 					<label for="inputEmail" class="sr-only">Email address</label>
 					<input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" autocomplete="section-blue username"
@@ -64,9 +64,9 @@
 							<input type="checkbox" value="remember-me"> Remember me
 						</label>
 					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+					<input class="btn btn-lg btn-primary btn-block" type="submit" onclick="return handleLogin();">Sign in</button>
 				</form>
-				<form id="registerForm" class="form-signin hidden" onsubmit="return newUserCreate();">
+				<form id="registerForm" class="form-signin hidden">
 					<h2 class="form-signin-heading">Please submit you Data to register</h2>
 					<label for="inputEmail" class="sr-only">Email address</label>
 					<input type="email" id="inputNewEmail" class="form-control mb-3" placeholder="Email address" autocomplete="section-blue username"
@@ -75,7 +75,7 @@
 					<input type="password" id="inputNewPassword" class="form-control mb-3" placeholder="Password" autocomplete="section-blue current-password"
 					 required>
 
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Create New User</button>
+					<button class="btn btn-lg btn-primary btn-block" type="button" onclick="return newUserCreate();">Create New User</button>
 				</form>
 			</div>
 		</div> <!-- /container -->
@@ -144,7 +144,7 @@
 
 	<!-- Stitch MongoDB Application Java Script Web Interface -->
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
-	<script src='https://s3.amazonaws.com/stitch-sdks/js/bundles/4.1.0/stitch.js'></script>
+	<script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.0.8/stitch.js"></script>
 
 	<!-- Bootstrap core Java Script -->
 	<!-- Placed at the end of the document so the pages load faster -->
