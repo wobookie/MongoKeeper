@@ -15,10 +15,10 @@ function handleFileSelect(evt) {
 	for (var i = 0, f; (f = files[i]); i++) {
 		// Only process csv files.
 		console.log(f.type);
-		if (f.type === "text/csv" || f.type==="text/plain") {
+		if (f.type === "text/csv" || f.type === "text/plain") {
 			var reader = new FileReader();
-			reader.onload = (function(theFile) {
-				return function(e) {
+			reader.onload = (function (theFile) {
+				return function (e) {
 					readCSV(e.target.result);
 				};
 			})(f);
@@ -46,12 +46,12 @@ document
 	.addEventListener("change", handleFileSelect, false);
 
 function readCSV(url) {
-	d3.csv(url, function(error, dataset) {
+	d3.csv(url, function (error, dataset) {
 		// NEW
 		status("loading")
-		dataset.forEach(function(d) {
+		dataset.forEach(function (d) {
 			console.log(d);
-			
+
 			//TODO Omodify d JSON Object as you needed
 			db
 				.collection("ingest")
@@ -61,13 +61,13 @@ function readCSV(url) {
 				})
 				.catch(err => {
 					console.error(err);
-				status("Error")
+					status("Error")
 				});
-			
+
 		});
 		status("job done")
 	});
-	
+
 }
 
 //login
@@ -83,7 +83,7 @@ function appIDName() {
 	db = client
 		.getServiceClient(stitch.RemoteMongoClient.factory, "mongodb-atlas")
 		.db("dwhArchive");
-
+	//TODO 
 	client.auth
 		.loginWithCredential(new stitch.AnonymousCredential())
 		.catch(err => {
@@ -96,6 +96,6 @@ function appIDName() {
 	//console.log("auth");
 }
 
-function status(e){
+function status(e) {
 	document.getElementById("status").innerHTML = `<p> Status: ${e} </p>`
 }
