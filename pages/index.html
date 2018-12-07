@@ -42,7 +42,7 @@
 				<p class="lead">Quickly build example to illustrate MongoDB Atlas hosted on a Google Cloud instance. It's built with Bootstrap and MongoDB Stitch components and utilities with little customization.</p>
 			</div>
 
-			<div class="row">
+			<div class="row" id="loginContainerId">
 				<div class="container">
 					<form class="form-signin">
 						<h2 class="form-signin-heading">Please sign in</h2>
@@ -55,8 +55,11 @@
 								<input type="checkbox" value="remember-me"> Remember me
 							</label>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+						<button class="btn btn-lg btn-primary btn-block mb-3" type="submit" onclick="handleLogin()">Sign in</button>
 					</form>
+					<div>
+						<span id="loginErrorId"></span>
+					</div>
 				</div>
 			</div> <!-- /container -->
 
@@ -65,6 +68,7 @@
 				<div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
 						<span class="text-muted">Application Status</span>
+						<button class="btn btn-outline-primary" type="button" onclick="refreshStatus()">Refresh</button>
 					</h4>
 
 					<ul class="list-group mb-3">
@@ -82,8 +86,8 @@
 						</li>
 						<li class="list-group-item d-flex justify-content-between lh-condensed">
 						  <div>
-							<h6 class="my-0">...</h6>
-							<small class="text-muted" id="statusMessageId">...</small>
+							<h6 class="my-0">Collection</h6>
+							<small class="text-muted" id="collectionMessageId">...</small>
 						  </div>
 						</li>
 					</ul>
