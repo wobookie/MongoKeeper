@@ -1,4 +1,6 @@
 // Get references to page elements
+const loader = document.getElementById("loaderId");
+
 const statusMessage = document.getElementById("statusMessageId");
 const loginMessage = document.getElementById("loginMessageId");
 const loginErrorMessage = document.getElementById("loginErrorId")
@@ -35,9 +37,13 @@ if (stitchClient.auth.isLoggedIn) {
 }
 
 async function handleLogin() {
+    loader.classList.add("is-active");
+
     console.log("Handle login - getLoginForm");
     const { email, password } = getLoginFormInfo();
     await emailPasswordAuth(email, password);
+
+    loader.classList.remove("is-active");
 }
 
 // Authenticate with Stitch as an email/password user
@@ -90,10 +96,15 @@ function countAllDocuments() {
 }
 
 async function refreshStatus() {
+    loader.classList.add("is-active");
+
 	try {
+
 		var documentCount = await countAllDocuments();
 		collectionMessage.innerText = "Found " + documentCount + " documents in collection";
 	} catch(error) {
 		console.error(error);
 	}
+
+    loader.classList.remove("is-active");
 }
