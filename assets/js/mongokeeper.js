@@ -6,6 +6,7 @@ const loginMessage = document.getElementById("loginMessageId");
 const loginErrorMessage = document.getElementById("loginErrorId")
 const collectionMessage = document.getElementById("collectionMessageId");
 
+
 // Set event listener
 
 

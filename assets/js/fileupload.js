@@ -5,7 +5,6 @@ $("#fileUploadFormId").submit(function() {
     handleFileUpload();
 });
 
-// File Label
 function handleFileLabel(input) {
     if (input.files && input.files[0]) {
         $('#fileUploadLabelId').html(input.files[0].name);
@@ -13,45 +12,23 @@ function handleFileLabel(input) {
 }
 
 async function handleFileUpload() {
-    stepped = 0;
-    rowCount = 0;
-    errorCount = 0;
-    firstError = undefined;
 
     var config = buildConfig();
 
-    if (!$('#files')[0].files.length)
+    if (!$('#file')[0].files.length)
     {
         alert("Please choose at least one file to parse.");
+        return;
     }
 
-    $('#files').parse({
-        config: config,
-        before: function(file, inputElem)
-        {
-            start = now();
-            console.log("Parsing file...", file);
-        },
-        error: function(err, file)
-        {
-            console.log("ERROR:", err, file);
-            firstError = firstError || err;
-            errorCount++;
-        },
-        complete: function()
-        {
-            end = now();
-            printStats("Done with all files");
-        }
-    });
-    console.log("Parsing results: " + parseResult);
+    results = Papa.parse($('#file'), config)
 
 }
 
 function buildConfig()
 {
     return {
-        delimiter: ",",	// auto-detect
+        delimiter: "",	// auto-detect
         newline: "",	// auto-detect
         quoteChar: '"',
         escapeChar: '"',
@@ -62,20 +39,9 @@ function buildConfig()
         encoding: "",
         worker: false,
         comments: false,
-        step: function(results) {
-            console.log("Row data:", results.data);
-            console.log("Row errors:", results.errors);
-        },
-        complete: function(results) {
-            console.log("Parse complete");
-            console.log("    Results: ", results);
-        },
-        error: function(error, file)
-        {
-            console.log("ERROR:", error, file);
-            firstError = firstError || error;
-            errorCount++;
-        },
+        step: undefined,
+        complete: undefined,
+        error: undefined,
         download: false,
         skipEmptyLines: false,
         chunk: undefined,
@@ -97,12 +63,5 @@ function printStats(msg)
     console.log("     Errors:", errorCount);
     if (errorCount)
         console.log("First error:", firstError);
-}
-
-function now()
-{
-    return typeof window.performance !== 'undefined'
-        ? window.performance.now()
-        : 0;
 }
 
