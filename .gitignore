@@ -53,3 +53,5 @@ fabric.properties
 .idea/httpRequests
 
 mongokeeper.iml
+
+node_modules
