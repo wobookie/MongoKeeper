@@ -6,12 +6,7 @@ const loginMessage = document.getElementById("loginMessageId");
 const loginErrorMessage = document.getElementById("loginErrorId")
 const collectionMessage = document.getElementById("collectionMessageId");
 
-
 // Set event listener
-const fileUpload = $("#fileUploadFormId").submit(function( event ) {
-    alert( "Handler for .submit() called." );
-    event.preventDefault();
-});
 
 
 // Setup MongoDB Stitch
@@ -96,6 +91,7 @@ function hideLoginContainer() {
 }
 
 function countAllDocuments() {
+
 	return (collection.count());
 }
 
@@ -113,6 +109,4 @@ async function handleStatusRefresh() {
     loader.classList.remove("is-active");
 }
 
-async function handleFileUpload(evt) {
 
-}
