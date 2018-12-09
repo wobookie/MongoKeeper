@@ -8,6 +8,10 @@ const collectionMessage = document.getElementById("collectionMessageId");
 
 
 // Set event listener
+const fileUpload = $("#fileUploadFormId").submit(function( event ) {
+    alert( "Handler for .submit() called." );
+    event.preventDefault();
+});
 
 
 // Setup MongoDB Stitch
@@ -95,7 +99,7 @@ function countAllDocuments() {
 	return (collection.count());
 }
 
-async function refreshStatus() {
+async function handleStatusRefresh() {
     loader.classList.add("is-active");
 
 	try {
@@ -107,4 +111,8 @@ async function refreshStatus() {
 	}
 
     loader.classList.remove("is-active");
+}
+
+async function handleFileUpload(evt) {
+
 }

@@ -73,7 +73,7 @@
 				<div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
 						<span class="text-muted">Application Status</span>
-						<button class="btn btn-outline-primary" type="button" onclick="refreshStatus()">Refresh</button>
+						<button class="btn btn-outline-primary" type="button" onclick="handleStatusRefresh()">Refresh</button>
 					</h4>
 
 					<ul class="list-group mb-3">
@@ -100,16 +100,16 @@
 				</div>
 				<div class="col-md-8 order-md-1">
 					<h4 class="mb-3">Data Upload</h4>
-					<form class="needs-validation" novalidate="">
+					<form class="form-group" id="fileUploadFormId">
                         <div class="mb-3">
-                            <label for="fileUpload">File Upload</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="fileUpload">
-                                <label class="custom-file-label" for="fileUpload">Choose file</label>
-                            </div>
+                            <label for="fileUploadId">File Upload</label>
+							<div class="custom-file" id="fileUploadId">
+								<input type="file" class="custom-file-input" id="customFile" onchange="handleFileLabel(this);">
+								<label class="custom-file-label" for="customFile" id="fileUploadLabelId">Choose file</label>
+							</div>
                         </div>
 						<hr class="mb-4">
-						<button class="btn btn-primary btn-lg btn-block" type="submit">Upload Data</button>
+						<button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
 					</form>
 				</div>
 			</div>	
@@ -136,13 +136,17 @@
 
 		<!-- Bootstrap -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		
+
+		<!-- PapaParse -->
+		<script src="../assets/vendor/papaparse-4.6.0/papaparse.min.js"></script>
+
 		<!-- Load React. -->
 		<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
 		<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
 		<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
 		
-		<!-- Load React component. -->
+		<!-- Custom component. -->
 		<script src="../assets/js/mongokeeper.js"></script>
+		<script src="../assets/js/fileupload.js"></script>
 	</body>
 </html>
