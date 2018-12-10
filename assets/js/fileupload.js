@@ -1,67 +1,62 @@
 // Set event listener
 
-// File Upload
-$("#fileUploadFormId").submit(function() {
-    handleFileUpload();
+$("#btnFileUploadSubmit").on("click", function() {
+    loader.classList.add("is-active");
+
+    var files = document.getElementById("file").files;
+    handleFileUpload(files);
 });
 
-function handleFileLabel(input) {
-    if (input.files && input.files[0]) {
-        $('#fileUploadLabelId').html(input.files[0].name);
+// File Browser
+$("#file").on("change", function() {
+    if (this.files && this.files[0]) {
+        $('#fileUploadLabelId').html(this.files[0].name);
     }
+});
+
+function parseFile(url, callBack) {
+    Papa.parse(url, {
+        header: true,
+        complete: function(results) {
+            console.log("Results: ", results);
+            callBack(results.data);
+        }
+    });
 }
 
-async function handleFileUpload() {
-
-    var config = buildConfig();
-
-    if (!$('#file')[0].files.length)
-    {
+function handleFileUpload(files) {
+    if (!files.length) {
         alert("Please choose at least one file to parse.");
         return;
     }
 
-    results = Papa.parse($('#file'), config)
+    loader.classList.add("is-active");
 
+    parseFile(files[0], writeDataSet);
 }
 
-function buildConfig()
-{
-    return {
-        delimiter: "",	// auto-detect
-        newline: "",	// auto-detect
-        quoteChar: '"',
-        escapeChar: '"',
-        header: false,
-        transformHeader: undefined,
-        dynamicTyping: false,
-        preview: 0,
-        encoding: "",
-        worker: false,
-        comments: false,
-        step: undefined,
-        complete: undefined,
-        error: undefined,
-        download: false,
-        skipEmptyLines: false,
-        chunk: undefined,
-        fastMode: undefined,
-        beforeFirstChunk: undefined,
-        withCredentials: undefined,
-        transform: undefined
-    };
-}
+function writeDataSet(dataset) {
+    console.log("start write dataSet");
 
-function printStats(msg)
-{
-    if (msg)
-        console.log(msg);
-    console.log("       Time:", (end-start || "(Unknown; your browser does not support the Performance API)"), "ms");
-    console.log("  Row count:", rowCount);
-    if (stepped)
-        console.log("    Stepped:", stepped);
-    console.log("     Errors:", errorCount);
-    if (errorCount)
-        console.log("First error:", firstError);
-}
+    collection.insertMany(dataset)
+        .then(doc => {
+            console.log("Dataset inserted");
+            loader.classList.remove("is-active");
+        })
+        .catch(err => {
+            console.error(err);
+            loader.classList.remove("is-active");
+        });
 
+    // for (var i = 0; i < dataset.length; i++) {
+    //    console.log("write dataSet " + dataset[i]);
+    //    collection.insertOne(dataset[i])
+    //        .then(doc => {
+    //            console.log(JSON.stringify(doc.insertedId));
+    //       })
+    //        .catch(err => {
+    //            console.error(err);
+    //        });
+    // }
+
+}

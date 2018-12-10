@@ -8,6 +8,21 @@ const collectionMessage = document.getElementById("collectionMessageId");
 
 
 // Set event listener
+$("#btnLoginSubmit").on("click", function() {
+    loader.classList.add("is-active");
+
+    email = document.getElementById("inputEmail").value;
+    password = document.getElementById("inputPassword").value;
+
+    handleLogin(email, password);
+});
+
+// File Browser
+$("#btnStatusRefresh").on("click", function() {
+    loader.classList.add("is-active");
+
+    handleStatusRefresh()
+});
 
 
 // Setup MongoDB Stitch
@@ -36,18 +51,12 @@ if (stitchClient.auth.isLoggedIn) {
     revealDashboardContainer();
 }
 
-async function handleLogin() {
-    loader.classList.add("is-active");
-
-    console.log("Handle login - getLoginForm");
-    const { email, password } = getLoginFormInfo();
-    await emailPasswordAuth(email, password);
-
-    loader.classList.remove("is-active");
+function countAllDocuments() {
+    return (collection.count());
 }
 
 // Authenticate with Stitch as an email/password user
-async function emailPasswordAuth(email, password) {
+function emailPasswordAuth(email, password) {
     console.log("Handle login request via eMailPasswordAuth");
 
     if (!stitchClient.auth.isLoggedIn) {
@@ -57,56 +66,39 @@ async function emailPasswordAuth(email, password) {
 		console.log('successfully logged in with id: ${authedId}');
 		hideLoginContainer();
 		revealDashboardContainer();
-		countAllDocuments();
+		loader.classList.remove("is-active");
 	})
 	.catch(error => {
 		console.error('login failed ' + error);
 		loginErrorMessage.innerText = "Login Failed - Incorrect email / password !";
+        loader.classList.remove("is-active");
 	})
     }
 }
 
-function getLoginFormInfo() {
-    const emailEl = document.getElementById("inputEmail");
-    const passwordEl = document.getElementById("inputPassword");
-    // Parse out input text
-    const email = emailEl.value;
-    const password = passwordEl.value;
-    // Remove text from login boxes
-    emailEl.value = "";
-    passwordEl.value = "";
-    return { email: email, password: password };
-}
-
 function revealDashboardContainer() {
-	const container = document.getElementById("dashboardContainerId");
+	container = document.getElementById("dashboardContainerId");
 	container.classList.remove("hidden");
 }
 
 function hideLoginContainer() {
-	const container = document.getElementById("loginContainerId");
-    	const user = stitchClient.auth.user;
+	container = document.getElementById("loginContainerId");
+	user = stitchClient.auth.user;
 
-    	container.classList.add("hidden");
-    	loginMessage.innerText = "Logged in as: " + user.profile.data.email;
+	container.classList.add("hidden");
+	loginMessage.innerText = "Logged in as: " + user.profile.data.email;
 }
 
-function countAllDocuments() {
 
-	return (collection.count());
+
+// Set Event Handler
+async function handleLogin(email, password) {
+    isAuthenticated = await emailPasswordAuth(email, password);
 }
 
 async function handleStatusRefresh() {
-    loader.classList.add("is-active");
-
-	try {
-
-		var documentCount = await countAllDocuments();
-		collectionMessage.innerText = "Found " + documentCount + " documents in collection";
-	} catch(error) {
-		console.error(error);
-	}
-
+    documentCount = await countAllDocuments();
+    collectionMessage.innerText = "Found " + documentCount + " documents in collection";
     loader.classList.remove("is-active");
 }
 
