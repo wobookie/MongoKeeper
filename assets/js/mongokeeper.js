@@ -8,7 +8,7 @@ const collectionMessage = document.getElementById("collectionMessageId");
 
 
 // Set event listener
-$("#btnLoginSubmit").on("click", function() {
+$("#btnLoginSubmit").on("click", function () {
     loader.classList.add("is-active");
 
     email = document.getElementById("inputEmail").value;
@@ -18,7 +18,7 @@ $("#btnLoginSubmit").on("click", function() {
 });
 
 // File Browser
-$("#btnStatusRefresh").on("click", function() {
+$("#btnStatusRefresh").on("click", function () {
     loader.classList.add("is-active");
 
     handleStatusRefresh()
@@ -34,7 +34,9 @@ const {
 } = stitch;
 
 
-const appID = "archive-jeqag"; 
+//const appID = "feedback-ksdgh";
+
+const appID = "archive-jeqag";
 const stitchClient = stitch.Stitch.initializeDefaultAppClient(appID);
 const db = stitchClient.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('dwhArchive');
 const collection = db.collection("ingest")
@@ -63,30 +65,30 @@ function emailPasswordAuth(email, password) {
         // Log the user in
         const credential = new UserPasswordCredential(email, password);
         stitchClient.auth.loginWithCredential(credential).then(authedId => {
-		console.log('successfully logged in with id: ${authedId}');
-		hideLoginContainer();
-		revealDashboardContainer();
-		loader.classList.remove("is-active");
-	})
-	.catch(error => {
-		console.error('login failed ' + error);
-		loginErrorMessage.innerText = "Login Failed - Incorrect email / password !";
-        loader.classList.remove("is-active");
-	})
+            console.log('successfully logged in with id: ${authedId}');
+            hideLoginContainer();
+            revealDashboardContainer();
+            loader.classList.remove("is-active");
+        })
+            .catch(error => {
+                console.error('login failed ' + error);
+                loginErrorMessage.innerText = "Login Failed - Incorrect email / password !";
+                loader.classList.remove("is-active");
+            })
     }
 }
 
 function revealDashboardContainer() {
-	container = document.getElementById("dashboardContainerId");
-	container.classList.remove("hidden");
+    container = document.getElementById("dashboardContainerId");
+    container.classList.remove("hidden");
 }
 
 function hideLoginContainer() {
-	container = document.getElementById("loginContainerId");
-	user = stitchClient.auth.user;
+    container = document.getElementById("loginContainerId");
+    user = stitchClient.auth.user;
 
-	container.classList.add("hidden");
-	loginMessage.innerText = "Logged in as: " + user.profile.data.email;
+    container.classList.add("hidden");
+    loginMessage.innerText = "Logged in as: " + user.profile.data.email;
 }
 
 
