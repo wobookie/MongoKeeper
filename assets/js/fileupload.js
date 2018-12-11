@@ -76,10 +76,8 @@ async function loadInStitch(j) {
     collection.insertMany(j)
         .then(doc => {
             console.log("Dataset inserted");
-            loader.classList.remove("is-active");
         })
         .catch(function (err) {
             console.error(err);
-            loader.classList.remove("is-active");
         });
 }
