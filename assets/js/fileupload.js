@@ -35,49 +35,52 @@ function handleFileUpload(files) {
 
     parseFile(files[0], writeDataSet);
 }
+let statusCount = 0
+let datasetLength
 
 function writeDataSet(dataset) {
     console.log("Prepare to write data set...");
-
-    /*for (var i = 0; i < dataset.length; i++) {
-        dataset[i].creationDate = new Date().toISOString();
-    }*/
-
-
+    datum = new Date();
+    datasetLength = dataset.length
+    for (var i = 0; i < dataset.length; i++) {
+        dataset[i].creationDate = datum
+    }
     i = 0
     j = []
+    console.log("load Atlas")
     dataset.forEach(function (d) {
         i++
         j.push(d)
-        if (i == 100) {
+        if (i == 100 || dataset.length < 100) {
             i = 0
             loadInStitch(j)
             j = []
         }
-
     })
-
-    /*
-    
-        */
-    // for (var i = 0; i < dataset.length; i++) {
-    //    console.log("write dataSet " + dataset[i]);
-    //    collection.insertOne(dataset[i])
-    //        .then(doc => {
-    //            console.log(JSON.stringify(doc.insertedId));
-    //       })
-    //        .catch(err => {
-    //            console.error(err);
-    //        });
-    // }
-
 }
-async function loadInStitch(j) {
+
+
+function loadInStitch(j) {
+
     collection.insertMany(j)
         .then(doc => {
-            console.log("Dataset inserted");
+            statusCount++
+            allProccessed(statusCount)
         })
         .catch(function (err) {
             console.error(err);
+            statusCount++
+            allProccessed(statusCount)
         });
+}
+
+function allProccessed(counter) {
+    if (datasetLength > 100) {
+        counter = counter * 100;
+    }
+
+    if (counter >= datasetLength) {
+        console.log(`Data is loaded - ${counter} - ${datasetLength}`)
+        loader.classList.remove("is-active");
+    }
 }
