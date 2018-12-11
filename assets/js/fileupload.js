@@ -17,6 +17,7 @@ $("#file").on("change", function() {
 function parseFile(url, callBack) {
     Papa.parse(url, {
         header: true,
+        skipEmptyLines: true,
         complete: function(results) {
             console.log("Results: ", results);
             callBack(results.data);
@@ -36,7 +37,11 @@ function handleFileUpload(files) {
 }
 
 function writeDataSet(dataset) {
-    console.log("start write dataSet");
+    console.log("Prepare to write data set...");
+
+    for (var i = 0; i < dataset.length; i++) {
+        dataset[i].creationDate = new Date().toISOString();
+    }
 
     collection.insertMany(dataset)
         .then(doc => {
