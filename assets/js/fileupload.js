@@ -1,10 +1,17 @@
+const fileInputText = document.getElementById("file");
+const fileUploadSuccessMsg = document.getElementById("fileUploadSuccessMsg");
+const fileUploadSuccessAlert = document.getElementById("fileUploadSuccessAlert");
+
 // Set event listener
-
 $("#btnFileUploadSubmit").on("click", function () {
-    loader.classList.add("is-active");
-
     var files = document.getElementById("file").files;
-    handleFileUpload(files);
+
+    if (!files.length) {
+        alert("Please choose at least one file to parse.");
+    } else {
+        loader.classList.add("is-active");
+        handleFileUpload(files);
+    }
 });
 
 // File Browser
@@ -26,15 +33,9 @@ function parseFile(url, callBack) {
 }
 
 function handleFileUpload(files) {
-    if (!files.length) {
-        alert("Please choose at least one file to parse.");
-        return;
-    }
-
-    loader.classList.add("is-active");
-
     parseFile(files[0], writeDataSet);
 }
+
 let statusCount = 0
 let datasetLength
 
@@ -64,23 +65,25 @@ function loadInStitch(j) {
 
     collection.insertMany(j)
         .then(doc => {
-            statusCount++
-            allProccessed(statusCount)
+            statusCount++;
+            allProccessed(statusCount);
         })
         .catch(function (err) {
             console.log(err);
-            statusCount++
-            allProccessed(statusCount)
+            statusCount++;
+            allProccessed(statusCount);
         });
 }
 
 function allProccessed(counter) {
-    if (datasetLength > 100) {
+    if (datasetLength >= 100) {
         counter = counter * 100;
     }
 
     if (counter >= datasetLength) {
-        console.log(`Data is loaded - ${counter} - ${datasetLength}`)
         loader.classList.remove("is-active");
+        fileInputText.value = "";
+        fileUploadSuccessMsg.innerText="Data file is loaded - chunks: " + counter/100 + " - total datasets: " + datasetLength;
+        fileUploadSuccessAlert.classList.remove("hidden");
     }
 }

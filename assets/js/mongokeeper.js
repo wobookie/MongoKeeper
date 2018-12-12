@@ -68,7 +68,7 @@ function emailPasswordAuth(email, password) {
             hideLoginContainer();
             revealDashboardContainer();
             loader.classList.remove("is-active");
-        })
+            })
             .catch(error => {
                 console.error('login failed ' + error);
                 loginErrorMessage.classList.remove("hidden");
@@ -90,8 +90,6 @@ function hideLoginContainer() {
     container.classList.add("hidden");
     loginMessage.innerText = "Logged in as: " + user.profile.data.email;
 }
-
-
 
 // Set Event Handler
 async function handleLogin(email, password) {
