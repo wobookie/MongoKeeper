@@ -32,14 +32,13 @@
 
 		<!-- Login Form -->
 		<div id="loginContainer">
-
 			<div class="login-form">
-				<form class="main-div">
-					<div class="panel">
-						<h2 class="form-signin-heading">MongoKeeper - Sign In</h2>
-						<p>Please enter your email and password</p>
-					</div>
-					<div class="alert alert-danger text-center hidden" id="loginErrorMessageId"></div>
+				<div class="panel">
+					<h2 class="form-signin-heading">MongoKeeper - Sign In</h2>
+					<p>Please enter your email and password</p>
+				</div>
+				<div class="alert alert-danger text-center hidden" id="loginErrorMessageId"></div>
+				<form>
 					<label for="inputEmail" class="sr-only">Email address</label>
 					<input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" autocomplete="section-blue username" required autofocus>
 					<label for="inputPassword" class="sr-only">Password</label>
@@ -51,13 +50,11 @@
 					</div>
 					<button class="btn btn-lg btn-primary btn-block mb-3" type="button" id="btnLoginSubmit">Sign in</button>
 				</form>
-
-			</div> <!-- /container -->
+			</div>
 		</div>
-
 		<!-- End Login Form -->
 
-		<div id="mainWrapper" class="hidden">
+		<div id="dashboardContainer" class="hidden">
 			<header>
 			  <!-- Fixed navbar -->
 			  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -70,12 +67,12 @@
 
 			<main role="main" class="container">
 
-				<div class="keeper-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+				<div class="keeper-header px-3 py-3 pt-md-5 pb-md-4 mt-5 mx-auto text-center">
 					<h1 class="display-4">MongoKeeper</h1>
 					<p class="lead">Quickly build example to illustrate MongoDB Atlas hosted on a Google Cloud instance. It's built with Bootstrap and MongoDB Stitch components and utilities with little customization.</p>
 				</div>
 
-				<div class="row hidden" id="dashboardContainerId">
+				<div class="row">
 					<div class="col-md-4 order-md-2 mb-4">
 						<h4 class="d-flex justify-content-between align-items-center mb-3">
 							<span class="text-muted">Application Status</span>

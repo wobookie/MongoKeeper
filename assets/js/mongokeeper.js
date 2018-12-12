@@ -63,9 +63,8 @@ function emailPasswordAuth(email, password) {
 
     if (!stitchClient.auth.isLoggedIn) {
         // Log the user in
-        const credential = new UserPasswordCredential(email, password);
+        var credential = new UserPasswordCredential(email, password);
         stitchClient.auth.loginWithCredential(credential).then(authedId => {
-            console.log(`successfully logged in with id: ${JSON.stringify(authedId)}`);
             hideLoginContainer();
             revealDashboardContainer();
             loader.classList.remove("is-active");
@@ -80,12 +79,12 @@ function emailPasswordAuth(email, password) {
 }
 
 function revealDashboardContainer() {
-    container = document.getElementById("dashboardContainerId");
+    container = document.getElementById("dashboardContainer");
     container.classList.remove("hidden");
 }
 
 function hideLoginContainer() {
-    container = document.getElementById("loginContainerId");
+    container = document.getElementById("loginContainer");
     user = stitchClient.auth.user;
 
     container.classList.add("hidden");
