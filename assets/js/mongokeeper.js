@@ -36,7 +36,7 @@ const {
 
 //const appID = "feedback-ksdgh";
 
-const appID = "archive-jeqag";
+const appID = "archive-aws-oznjd";
 const stitchClient = stitch.Stitch.initializeDefaultAppClient(appID);
 const db = stitchClient.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('archiveDB');
 const collection = db.collection("ingest")
@@ -65,7 +65,7 @@ function emailPasswordAuth(email, password) {
         // Log the user in
         const credential = new UserPasswordCredential(email, password);
         stitchClient.auth.loginWithCredential(credential).then(authedId => {
-            console.log('successfully logged in with id: ${authedId}');
+            console.log(`successfully logged in with id: ${authedId}`);
             hideLoginContainer();
             revealDashboardContainer();
             loader.classList.remove("is-active");
