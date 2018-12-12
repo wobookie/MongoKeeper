@@ -38,7 +38,7 @@ const appID = "feedback-ksdgh";
 
 //const appID = "archive-jeqag";
 const stitchClient = stitch.Stitch.initializeDefaultAppClient(appID);
-const db = stitchClient.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('dwhArchive');
+const db = stitchClient.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('archiveDB');
 const collection = db.collection("ingest")
 
 
