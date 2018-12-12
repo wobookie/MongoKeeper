@@ -40,10 +40,10 @@ let datasetLength
 
 function writeDataSet(dataset) {
     console.log("Prepare to write data set...");
-    datum = new Date();
+
     datasetLength = dataset.length
     for (var i = 0; i < dataset.length; i++) {
-        dataset[i].creationDate = datum
+        dataset[i].creationDate = new Date();
     }
     i = 0
     j = []
