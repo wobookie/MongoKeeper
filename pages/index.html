@@ -30,96 +30,103 @@
     <!-- Loader -->
         <div class="loader loader-default" id="loaderId"></div>
 
-		<header>
-		  <!-- Fixed navbar -->
-		  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-			<a class="navbar-brand" href="#">MongoKeeper</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		  </nav>
-		</header>
+		<!-- Login Form -->
+		<div id="loginContainer">
 
-        <main role="main" class="container">
-
-			<div class="keeper-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-				<h1 class="display-4">MongoKeeper</h1>
-				<p class="lead">Quickly build example to illustrate MongoDB Atlas hosted on a Google Cloud instance. It's built with Bootstrap and MongoDB Stitch components and utilities with little customization.</p>
-			</div>
-
-			<div class="row" id="loginContainerId">
-				<div class="container">
-					<form class="form-signin">
-						<h2 class="form-signin-heading">Please sign in</h2>
-						<label for="inputEmail" class="sr-only">Email address</label>
-						<input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" autocomplete="section-blue username" required autofocus>
-						<label for="inputPassword" class="sr-only">Password</label>
-						<input type="password" id="inputPassword" class="form-control mb-3" placeholder="Password" autocomplete="section-blue current-password" required>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="remember-me"> Remember me
-							</label>
-						</div>
-						<button class="btn btn-lg btn-primary btn-block mb-3" type="button" id="btnLoginSubmit">Sign in</button>
-					</form>
-
-					<div>
-						<span id="loginErrorId"></span>
+			<div class="login-form">
+				<form class="main-div">
+					<div class="panel">
+						<h2 class="form-signin-heading">MongoKeeper - Sign In</h2>
+						<p>Please enter your email and password</p>
 					</div>
-				</div>
+					<div class="alert alert-danger text-center hidden" id="loginErrorMessageId"></div>
+					<label for="inputEmail" class="sr-only">Email address</label>
+					<input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" autocomplete="section-blue username" required autofocus>
+					<label for="inputPassword" class="sr-only">Password</label>
+					<input type="password" id="inputPassword" class="form-control mb-3" placeholder="Password" autocomplete="section-blue current-password" required>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="remember-me"> Remember me
+						</label>
+					</div>
+					<button class="btn btn-lg btn-primary btn-block mb-3" type="button" id="btnLoginSubmit">Sign in</button>
+				</form>
+
 			</div> <!-- /container -->
+		</div>
 
+		<!-- End Login Form -->
 
-			<div class="row hidden" id="dashboardContainerId">
-				<div class="col-md-4 order-md-2 mb-4">
-					<h4 class="d-flex justify-content-between align-items-center mb-3">
-						<span class="text-muted">Application Status</span>
-						<button class="btn btn-outline-primary" type="button" id="btnStatusRefresh">Refresh</button>
-					</h4>
+		<div id="mainWrapper" class="hidden">
+			<header>
+			  <!-- Fixed navbar -->
+			  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				<a class="navbar-brand" href="#">MongoKeeper</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			  </nav>
+			</header>
 
-					<ul class="list-group mb-3">
-						<li class="list-group-item d-flex justify-content-between lh-condensed">
-						  <div>
-							<h6 class="my-0">Status</h6>
-							<small class="text-muted" id="statusMessageId">...</small>
-						  </div>
-						</li>
-						<li class="list-group-item d-flex justify-content-between lh-condensed">
-						  <div>
-							<h6 class="my-0">Login</h6>
-							<small class="text-muted" id="loginMessageId">...</small>
-						  </div>
-						</li>
-						<li class="list-group-item d-flex justify-content-between lh-condensed">
-						  <div>
-							<h6 class="my-0">Collection</h6>
-							<small class="text-muted" id="collectionMessageId">...</small>
-						  </div>
-						</li>
-					</ul>
+			<main role="main" class="container">
 
+				<div class="keeper-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+					<h1 class="display-4">MongoKeeper</h1>
+					<p class="lead">Quickly build example to illustrate MongoDB Atlas hosted on a Google Cloud instance. It's built with Bootstrap and MongoDB Stitch components and utilities with little customization.</p>
 				</div>
-				<div class="col-md-8 order-md-1">
-					<h4 class="mb-3">Data Upload</h4>
-					<div class="mb-3">
-						<label for="fileUploadId">File Upload</label>
-						<div class="custom-file" id="fileUploadId">
-							<input type="file" class="custom-file-input" id="file">
-							<label class="custom-file-label" for="file" id="fileUploadLabelId">Choose file</label>
-						</div>
+
+				<div class="row hidden" id="dashboardContainerId">
+					<div class="col-md-4 order-md-2 mb-4">
+						<h4 class="d-flex justify-content-between align-items-center mb-3">
+							<span class="text-muted">Application Status</span>
+							<button class="btn btn-outline-primary" type="button" id="btnStatusRefresh">Refresh</button>
+						</h4>
+
+						<ul class="list-group mb-3">
+							<li class="list-group-item d-flex justify-content-between lh-condensed">
+							  <div>
+								<h6 class="my-0">Status</h6>
+								<small class="text-muted" id="statusMessageId">...</small>
+							  </div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between lh-condensed">
+							  <div>
+								<h6 class="my-0">Login</h6>
+								<small class="text-muted" id="loginMessageId">...</small>
+							  </div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between lh-condensed">
+							  <div>
+								<h6 class="my-0">Collection</h6>
+								<small class="text-muted" id="collectionMessageId">...</small>
+							  </div>
+							</li>
+						</ul>
+
 					</div>
-					<hr class="mb-4">
-					<button class="btn btn-primary btn-lg btn-block" type="button" id="btnFileUploadSubmit">Submit</button>
+					<div class="col-md-8 order-md-1">
+						<h4 class="mb-3">Data Upload</h4>
+						<div class="mb-3">
+							<label for="fileUploadId">File Upload</label>
+							<div class="custom-file" id="fileUploadId">
+								<input type="file" class="custom-file-input" id="file">
+								<label class="custom-file-label" for="file" id="fileUploadLabelId">Choose file</label>
+							</div>
+						</div>
+						<hr class="mb-4">
+						<button class="btn btn-primary btn-lg btn-block" type="button" id="btnFileUploadSubmit">Submit</button>
+					</div>
 				</div>
-			</div>	
-		</main>
-		
-		<footer class="footer">
-			<div class="container">
-					<p class="text-muted text-center">© 2017-2018 Commerzbank AG</p>
-			</div>	
-		</footer>
-      
+			</main>
+
+			<footer class="footer">
+				<div class="container">
+						<p class="text-muted text-center">© 2017-2018 Commerzbank AG</p>
+				</div>
+			</footer>
+		</div>
+    	<!-- End Main Wrapper -->
+
 		<!-- Stitch MongoDB Application Java Script Web Interface -->
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
 		<script src='https://s3.amazonaws.com/stitch-sdks/js/bundles/4.1.0/stitch.js'></script>

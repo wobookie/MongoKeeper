@@ -3,7 +3,7 @@ const loader = document.getElementById("loaderId");
 
 const statusMessage = document.getElementById("statusMessageId");
 const loginMessage = document.getElementById("loginMessageId");
-const loginErrorMessage = document.getElementById("loginErrorId")
+const loginErrorMessage = document.getElementById("loginErrorMessageId")
 const collectionMessage = document.getElementById("collectionMessageId");
 
 
@@ -72,7 +72,8 @@ function emailPasswordAuth(email, password) {
         })
             .catch(error => {
                 console.error('login failed ' + error);
-                loginErrorMessage.innerText = "Login Failed - Incorrect email / password !";
+                loginErrorMessage.classList.remove("hidden");
+                loginErrorMessage.innerHTML = "Login Failed - Incorrect email / password !";
                 loader.classList.remove("is-active");
             })
     }
