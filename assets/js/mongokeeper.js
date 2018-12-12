@@ -65,7 +65,7 @@ function emailPasswordAuth(email, password) {
         // Log the user in
         const credential = new UserPasswordCredential(email, password);
         stitchClient.auth.loginWithCredential(credential).then(authedId => {
-            console.log(`successfully logged in with id: ${authedId}`);
+            console.log(`successfully logged in with id: ${JSON.stringify(authedId)}`);
             hideLoginContainer();
             revealDashboardContainer();
             loader.classList.remove("is-active");

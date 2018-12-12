@@ -68,7 +68,7 @@ function loadInStitch(j) {
             allProccessed(statusCount)
         })
         .catch(function (err) {
-            console.error(err);
+            console.log(err);
             statusCount++
             allProccessed(statusCount)
         });
